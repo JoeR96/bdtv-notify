@@ -1,0 +1,66 @@
+name: bdtv-note-orc
+
+services:
+  whisper:
+    image: ghcr.io/ggml-org/whisper.cpp:main
+    ports:
+      - "${WHISPER_PORT:-8088}:8080"
+    volumes:
+      - whisper-models:/models
+    entrypoint: >
+      /bin/sh -c "/app/build/bin/whisper-server
+      --host 0.0.0.0
+      --convert
+      -m /models/${WHISPER_MODEL:-ggml-base.en.bin}"
+    profiles: ["cpu"]
+    restart: unless-stopped
+
+  whisper-gpu:
+    image: ghcr.io/ggml-org/whisper.cpp:main
+    ports:
+      - "${WHISPER_PORT:-8088}:8080"
+    volumes:
+      - whisper-models:/models
+    entrypoint: >
+      /bin/sh -c "/app/build/bin/whisper-server
+      --host 0.0.0.0
+      --convert
+      -m /models/${WHISPER_MODEL:-ggml-base.en.bin}"
+    profiles: ["gpu"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "${OLLAMA_PORT:-11434}:11434"
+    volumes:
+      - ollama-models:/root/.ollama
+    profiles: ["cpu"]
+    restart: unless-stopped
+
+  ollama-gpu:
+    image: ollama/ollama:latest
+    ports:
+      - "${OLLAMA_PORT:-11434}:11434"
+    volumes:
+      - ollama-models:/root/.ollama
+    profiles: ["gpu"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+
+volumes:
+  whisper-models:
+  ollama-models:

@@ -1,0 +1,54 @@
+{
+  "name": "@bdtv/note-orc",
+  "version": "0.3.0",
+  "description": "Dockerised voice-to-text and LLM note-tidying toolkit for Obsidian. No cloud dependencies.",
+  "bin": {
+    "olt": "./bin/olt.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "bin/",
+    "dist/",
+    "docker-compose.yml",
+    "config/"
+  ],
+  "scripts": {
+    "clean": "node -e \"const fs=require('fs');fs.rmSync('dist',{recursive:true,force:true})\"",
+    "build": "npm run clean && tsc && copyfiles -u 2 src/prompts/*.md dist/prompts",
+    "build:watch": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build && npm run typecheck && npm test"
+  },
+  "keywords": [
+    "obsidian",
+    "whisper",
+    "ollama",
+    "dictation",
+    "speech-to-text",
+    "local-llm",
+    "voice-notes",
+    "note-tidying"
+  ],
+  "author": "bdtv",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bdtv/note-orc"
+  },
+  "homepage": "https://github.com/bdtv/note-orc#readme",
+  "dependencies": {
+    "@clack/prompts": "^1.2.0",
+    "commander": "^12.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "copyfiles": "^2.4.1",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.0.0"
+  }
+}

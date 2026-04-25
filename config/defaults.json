@@ -1,0 +1,54 @@
+{
+  "whisper": {
+    "model": "ggml-base.en",
+    "port": 8088
+  },
+  "ollama": {
+    "model": "qwen2.5:7b",
+    "port": 11434
+  },
+  "api": {
+    "port": 3456
+  },
+  "whisperModels": [
+    {
+      "name": "ggml-tiny.en",
+      "sizeMb": 75,
+      "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en.bin"
+    },
+    {
+      "name": "ggml-base.en",
+      "sizeMb": 142,
+      "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.en.bin"
+    },
+    {
+      "name": "ggml-small.en",
+      "sizeMb": 466,
+      "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.en.bin"
+    },
+    {
+      "name": "ggml-medium.en",
+      "sizeMb": 1500,
+      "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-medium.en.bin"
+    },
+    {
+      "name": "ggml-large-v3",
+      "sizeMb": 3100,
+      "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3.bin"
+    }
+  ],
+  "ollamaModels": [
+    {
+      "name": "llama3.2:3b",
+      "description": "Meta Llama 3.2 3B — fast, lightweight"
+    },
+    {
+      "name": "qwen2.5:7b",
+      "description": "Qwen 2.5 7B — default, excellent quality"
+    },
+    {
+      "name": "phi4:14b",
+      "description": "Microsoft Phi-4 14B — high quality, slower"
+    }
+  ]
+}
