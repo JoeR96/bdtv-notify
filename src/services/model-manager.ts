@@ -24,7 +24,7 @@ export class ModelManager {
       'docker',
       [
         'run', '--rm',
-        '-v', 'bdtv-note-orc_whisper-models:/models',
+        '-v', 'bdtv-notify_whisper-models:/models',
         'alpine/curl',
         'curl', '-L', '--progress-bar',
         '-o', `/models/${modelName}.bin`,
@@ -45,7 +45,7 @@ export class ModelManager {
   listInstalledWhisperModels(): string[] {
     const result = spawnSync(
       'docker',
-      ['run', '--rm', '-v', 'bdtv-note-orc_whisper-models:/models', 'alpine', 'ls', '/models'],
+      ['run', '--rm', '-v', 'bdtv-notify_whisper-models:/models', 'alpine', 'ls', '/models'],
       { stdio: ['ignore', 'pipe', 'ignore'] }
     );
 

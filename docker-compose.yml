@@ -1,4 +1,4 @@
-name: bdtv-note-orc
+name: bdtv-notify
 
 services:
   whisper:

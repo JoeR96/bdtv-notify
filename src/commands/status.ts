@@ -38,7 +38,7 @@ function statusLine(label: string, ok: boolean, detail: string): string {
 async function runStatus(): Promise<void> {
   const config = readConfig();
 
-  console.log('\nbdtv-note-orc status\n');
+  console.log('\nbdtv-notify status\n');
 
   // Run all checks concurrently
   const [dockerResult, whisperOk, ollamaOk, tidyApiOk] = await Promise.all([

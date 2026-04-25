@@ -1,5 +1,5 @@
 {
-  "name": "@bdtv/note-orc",
+  "name": "@bdtv/notify",
   "version": "0.3.0",
   "description": "Dockerised voice-to-text and LLM note-tidying toolkit for Obsidian. No cloud dependencies.",
   "bin": {
@@ -37,9 +37,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bdtv/note-orc"
+    "url": "https://github.com/bdtv/notify"
   },
-  "homepage": "https://github.com/bdtv/note-orc#readme",
+  "homepage": "https://github.com/bdtv/notify#readme",
   "dependencies": {
     "@clack/prompts": "^1.2.0",
     "commander": "^12.0.0"

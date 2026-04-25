@@ -4,7 +4,7 @@ import * as os from 'node:os';
 import type { AppConfig } from '../types';
 import defaults from '../../config/defaults.json';
 
-const CONFIG_DIR = path.join(os.homedir(), '.bdtv-note-orc');
+const CONFIG_DIR = path.join(os.homedir(), '.bdtv-notify');
 const CONFIG_FILE = path.join(CONFIG_DIR, 'config.json');
 
 const DEFAULT_CONFIG: AppConfig = {

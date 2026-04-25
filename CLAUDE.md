@@ -41,7 +41,7 @@ src/
     extract-tasks.ts         Pull structured tasks from a note as JSON (olt extract-tasks)
     models.ts                List/switch/update Whisper and Ollama models (olt models)
   services/
-    config.ts                Read/write ~/.bdtv-note-orc/config.json with deep merge
+    config.ts                Read/write ~/.bdtv-notify/config.json with deep merge
     gpu-detect.ts            NVIDIA / Apple Silicon / CPU-only detection
     whisper-client.ts        HTTP client for whisper.cpp /inference endpoint
     ollama-client.ts         HTTP client for Ollama /api/generate and /api/pull
@@ -78,7 +78,7 @@ npm link             # make olt available globally for local testing
 | `olt setup --show-hotkeys` | Print Shell Commands curl snippets for copy-paste |
 | `olt obsidian-setup` | (Re)configure Obsidian plugins without re-running full setup — safe to run any time |
 | `olt serve` | Start Docker services + tidy API (foreground, Ctrl+C to stop) |
-| `olt serve -d` | Start everything in background; tidy API PID written to `~/.bdtv-note-orc/tidy-api.pid` |
+| `olt serve -d` | Start everything in background; tidy API PID written to `~/.bdtv-notify/tidy-api.pid` |
 | `olt stop` | Stop Docker services + kill background tidy API |
 | `olt status` | Health check: Docker, Whisper, Ollama, Tidy API, Vault. Uses `127.0.0.1` to avoid IPv6 timeout |
 | `olt transcribe <file>` | Transcribe audio file. Flags: `--stdin`, `--to-obsidian <name>` |
@@ -127,7 +127,7 @@ Selection tidy commands use `--data-binary @-` to pipe stdin (the `{{selection}}
 
 ## Config
 
-Stored at `~/.bdtv-note-orc/config.json`. Written by `olt setup`, updated by `olt models use-*`.
+Stored at `~/.bdtv-notify/config.json`. Written by `olt setup`, updated by `olt models use-*`.
 
 ```jsonc
 {
@@ -140,7 +140,7 @@ Stored at `~/.bdtv-note-orc/config.json`. Written by `olt setup`, updated by `ol
 }
 ```
 
-`prompts.light` / `prompts.deep` can be absolute paths to override bundled templates. Convention-based override at `~/.bdtv-note-orc/prompts/light-tidy.md` is checked first.
+`prompts.light` / `prompts.deep` can be absolute paths to override bundled templates. Convention-based override at `~/.bdtv-notify/prompts/light-tidy.md` is checked first.
 
 ## Tidy API Endpoints
 
@@ -166,13 +166,13 @@ Returns: `{"status":"ok","ollama":bool,"whisper":bool,"vault":"..."}`
 
 ## Docker Compose
 
-Project name: `bdtv-note-orc` (set via `name:` in docker-compose.yml, making volume names predictable).
+Project name: `bdtv-notify` (set via `name:` in docker-compose.yml, making volume names predictable).
 
 Named volumes created by compose:
-- `bdtv-note-orc_whisper-models` — Whisper GGML model files
-- `bdtv-note-orc_ollama-models` — Ollama model blobs
+- `bdtv-notify_whisper-models` — Whisper GGML model files
+- `bdtv-notify_ollama-models` — Ollama model blobs
 
-**Important**: Model downloads during `olt setup` must target these exact volume names (with the `bdtv-note-orc_` prefix) so the running containers find them. `setup.ts` and `model-manager.ts` hardcode these names.
+**Important**: Model downloads during `olt setup` must target these exact volume names (with the `bdtv-notify_` prefix) so the running containers find them. `setup.ts` and `model-manager.ts` hardcode these names.
 
 ### Whisper container entrypoint
 
@@ -237,9 +237,9 @@ Integration tests require `olt serve` running — test manually using `olt statu
 6. Confirm selections before downloading
 7. Pull `ghcr.io/ggml-org/whisper.cpp:main` Docker image
 8. Pull `ollama/ollama:latest` Docker image
-9. Download Whisper model into `bdtv-note-orc_whisper-models` volume via `alpine/curl`
-10. Start temporary Ollama container (with `bdtv-note-orc_ollama-models` volume), poll until ready, pull LLM, stop container
-11. Write `~/.bdtv-note-orc/config.json`
+9. Download Whisper model into `bdtv-notify_whisper-models` volume via `alpine/curl`
+10. Start temporary Ollama container (with `bdtv-notify_ollama-models` volume), poll until ready, pull LLM, stop container
+11. Write `~/.bdtv-notify/config.json`
 12. If Whisper + Shell Commands plugins detected: auto-configure via `configureObsidianPlugins()`
 13. If plugins missing: show install instructions + tell user to run `olt obsidian-setup`
 

@@ -3,7 +3,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
 
-// Use a temp dir for tests so we don't touch the real ~/.bdtv-note-orc
+// Use a temp dir for tests so we don't touch the real ~/.bdtv-notify
 const testDir = path.join(os.tmpdir(), `olt-test-${Date.now()}`);
 
 vi.mock('node:os', async (importOriginal) => {
@@ -41,7 +41,7 @@ describe('readConfig', () => {
   });
 
   it('returns defaults when config file has invalid JSON', () => {
-    const configDir = path.join(testDir, '.bdtv-note-orc');
+    const configDir = path.join(testDir, '.bdtv-notify');
     fs.mkdirSync(configDir, { recursive: true });
     fs.writeFileSync(path.join(configDir, 'config.json'), 'not json', 'utf8');
     const config = readConfig();

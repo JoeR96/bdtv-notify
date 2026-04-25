@@ -83,7 +83,7 @@ async function downloadWhisperModel(modelName: string, url: string): Promise<voi
   s.start(`Downloading ${modelName}${entry ? ` (${entry.sizeMb} MB)` : ''}`);
   const result = await run('docker', [
     'run', '--rm',
-    '-v', 'bdtv-note-orc_whisper-models:/models',
+    '-v', 'bdtv-notify_whisper-models:/models',
     'alpine/curl',
     'curl', '-L', '-s',
     '-o', `/models/${modelName}.bin`,
@@ -108,7 +108,7 @@ async function pullOllamaModel(modelName: string): Promise<void> {
   const startResult = await run('docker', [
     'run', '-d', '--rm',
     '--name', containerName,
-    '-v', 'bdtv-note-orc_ollama-models:/root/.ollama',
+    '-v', 'bdtv-notify_ollama-models:/root/.ollama',
     'ollama/ollama',
   ]);
 
@@ -231,7 +231,7 @@ async function runSetup(options: {
     return;
   }
 
-  intro('bdtv-note-orc setup');
+  intro('bdtv-notify setup');
 
   // 1. Docker check
   await checkDocker();
