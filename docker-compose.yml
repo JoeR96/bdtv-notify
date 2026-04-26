@@ -63,4 +63,8 @@ services:
 
 volumes:
   whisper-models:
+    external: true
+    name: bdtv-notify_whisper-models
   ollama-models:
+    external: true
+    name: bdtv-notify_ollama-models
